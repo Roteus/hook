@@ -38,7 +38,7 @@ public class Runner extends GameActor {
 
     public void dodge(){
         if (!jumping){
-            body.setTransform(getUserData().getDodgePosition(), getUserData().getDodgeAngle());
+            body.setTransform(this.getUserData().getDodgePosition(), this.getUserData().getDodgeAngle());
             dodging = true;
         }
     }
