@@ -72,7 +72,7 @@ public class GameStage extends Stage implements ContactListener{
     }
 
     public void setupRunner(){
-        runner = new Runner(WorldUtils.createGround(world));
+        runner = new Runner(WorldUtils.createRunner(world));
         addActor(runner);
     }
 
