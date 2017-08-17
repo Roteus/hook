@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -27,8 +26,8 @@ import utils.WorldUtils;
 public class GameStage extends Stage implements ContactListener{
 
     //para o  debug
-    private static final int VIEWPORT_WIDTH = 20;
-    private static final int VIEWPORT_HEIGHT = 13;
+    private static final int VIEWPORT_WIDTH = Constants.APP_WIDTH;
+    private static final int VIEWPORT_HEIGHT = Constants.APP_HEIGHT;
 
     private World world;
     private Ground ground;

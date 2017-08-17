@@ -16,8 +16,4 @@ public class HookGame extends Game {
 		setScreen(new GameScreen());
 	}
 
-	@Override
-	public void render() {
-
-	}
 }
