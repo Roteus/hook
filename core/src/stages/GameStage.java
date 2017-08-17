@@ -12,11 +12,12 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Array;
 
+import actors.Enemy;
 import actors.Ground;
 import actors.Runner;
 import utils.BodyUtils;
-import utils.Constants;
 import utils.WorldUtils;
 
 /**
@@ -26,8 +27,8 @@ import utils.WorldUtils;
 public class GameStage extends Stage implements ContactListener{
 
     //para o  debug
-    private static final int VIEWPORT_WIDTH = Constants.APP_WIDTH;
-    private static final int VIEWPORT_HEIGHT = Constants.APP_HEIGHT;
+    private static final int VIEWPORT_WIDTH = 20;
+    private static final int VIEWPORT_HEIGHT = 13;
 
     private World world;
     private Ground ground;
@@ -63,6 +64,7 @@ public class GameStage extends Stage implements ContactListener{
         world.setContactListener(this);
         setupGround();
         setupRunner();
+        createEnemy();
     }
 
     public void setupGround(){
@@ -70,7 +72,7 @@ public class GameStage extends Stage implements ContactListener{
         addActor(ground);
     }
 
-    public void setupRunner(){
+    public void setupRunner() {
         runner = new Runner(WorldUtils.createRunner(world));
         addActor(runner);
     }
@@ -78,6 +80,12 @@ public class GameStage extends Stage implements ContactListener{
     @Override
     public void act(float delta) {
         super.act(delta);
+
+        Array<Body> bodies = new Array<Body>(world.getBodyCount());
+        world.getBodies(bodies);
+
+        for (Body body : bodies)
+            update(body);
 
         //fixed timestep
         accumulator += delta;
@@ -88,6 +96,20 @@ public class GameStage extends Stage implements ContactListener{
         }
 
         //TODO interpolação
+    }
+
+    private void update(Body body){
+        if(!BodyUtils.bodyInBounds(body)){
+            if(BodyUtils.bodyIsEnemy(body) && !runner.isHit()){
+                createEnemy();
+            }
+            world.destroyBody(body);
+        }
+    }
+
+    private void createEnemy(){
+        Enemy enemy = new Enemy(WorldUtils.createEnemy(world));
+        addActor(enemy);
     }
 
     @Override
@@ -146,7 +168,10 @@ public class GameStage extends Stage implements ContactListener{
         Body a = contact.getFixtureA().getBody();
         Body b = contact.getFixtureB().getBody();
 
-        if((BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsGround(b)) || (BodyUtils.bodyIsGround(a) && BodyUtils.bodyIsRunner(b))){
+        if((BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsEnemy(b)) || (BodyUtils.bodyIsEnemy(a) && BodyUtils.bodyIsRunner(b))){
+            runner.hit();
+    }
+       else if((BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsGround(b)) || (BodyUtils.bodyIsGround(a) && BodyUtils.bodyIsRunner(b))){
             runner.landed();
         }
     }
