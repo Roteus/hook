@@ -1,5 +1,6 @@
 package utils;
 
+import com.badlogic.gdx.math.Path;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -10,6 +11,7 @@ public class Constants {
 
     public static final int APP_WIDTH = 800;
     public static final int APP_HEIGHT = 600;
+    public static final float WORLD_TO_SCREEN = 32;
 
     //world
     public static final Vector2 WORLD_GRAVITY = new Vector2(0,-10);
@@ -38,4 +40,23 @@ public class Constants {
     public static final float RUNNING_LONG_ENEMY_Y = 2f;
     public static final float FLYING_ENEMY_Y = 3f;
     public static final Vector2 ENEMY_LINEAR_VELOCITY = new Vector2(-10f, 0);
+
+    //background
+    public static final String BACKGROUND_IMAGE_PATH = "landscape.png";
+    public static final String GROUND_IMAGE_PATH = "ground_final.png";
+
+    //sprites runner
+    public static final String CHARACTERS_ATLAS_PATH = "characters.txt";
+    public static final String[] RUNNER_RUNNING_REGION_NAMES = new String[] {"alienGreen_run1", "alienGreen_run2"};
+    public static final String RUNNER_DODGING_REGION_NAME = "alienGreen_dodge";
+    public static final String RUNNER_HIT_REGION_NAME = "alienGreen_hit";
+    public static final String RUNNER_JUMPING_REGION_NAME = "alienGreen_jump";
+
+    //sprites enemys
+    public static final String[] RUNNING_SMALL_ENEMY_REGION_NAMES = new String[] {"ladybug_walk1", "ladybug_walk2"};
+    public static final String[] RUNNING_LONG_ENEMY_REGION_NAMES = new String[] {"barnacle_bite1", "barnacle_bite2"};
+    public static final String[] RUNNING_BIG_ENEMY_REGION_NAMES =  new String[] {"spider_walk1", "spider_walk2"};
+    public static final String[] RUNNING_WIDE_ENEMY_REGION_NAMES = new String[] {"worm_walk1", "worm_walk2"};
+    public static final String[] FLYING_SMALL_ENEMY_REGION_NAMES = new String[] {"bee_fly1", "bee_fly2"};
+    public static final String[] FLYING_WIDE_ENEMY_REGION_NAMES = new String[] {"fly_fly1", "fly_fly2"};
 }

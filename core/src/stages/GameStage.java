@@ -13,11 +13,15 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Scaling;
+import com.badlogic.gdx.utils.viewport.ScalingViewport;
 
+import actors.Background;
 import actors.Enemy;
 import actors.Ground;
 import actors.Runner;
 import utils.BodyUtils;
+import utils.Constants;
 import utils.WorldUtils;
 
 /**
@@ -26,9 +30,8 @@ import utils.WorldUtils;
 
 public class GameStage extends Stage implements ContactListener{
 
-    //para o  debug
-    private static final int VIEWPORT_WIDTH = 20;
-    private static final int VIEWPORT_HEIGHT = 13;
+    private static final int VIEWPORT_WIDTH = Constants.APP_WIDTH;
+    private static final int VIEWPORT_HEIGHT = Constants.APP_HEIGHT;
 
     private World world;
     private Ground ground;
@@ -46,11 +49,10 @@ public class GameStage extends Stage implements ContactListener{
     public Vector3 touchPoint;
 
     public GameStage(){
+        super(new ScalingViewport(Scaling.stretch, VIEWPORT_WIDTH, VIEWPORT_HEIGHT, new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT)));
         setupWorld();
         setupCamera();
         setupTouchControlAreas();
-        //debug
-        renderer = new Box2DDebugRenderer();
     }
 
     private void setupCamera(){
@@ -62,9 +64,14 @@ public class GameStage extends Stage implements ContactListener{
     public void setupWorld(){
         world = WorldUtils.createWorld();
         world.setContactListener(this);
+        setupBackground();
         setupGround();
         setupRunner();
         createEnemy();
+    }
+
+    public void setupBackground(){
+        addActor(new Background());
     }
 
     public void setupGround(){
@@ -110,12 +117,6 @@ public class GameStage extends Stage implements ContactListener{
     private void createEnemy(){
         Enemy enemy = new Enemy(WorldUtils.createEnemy(world));
         addActor(enemy);
-    }
-
-    @Override
-    public void draw() {
-        super.draw();
-        renderer.render(world, camera.combined);
     }
 
     public void setupTouchControlAreas(){
