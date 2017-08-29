@@ -14,11 +14,11 @@ public class EnemyUserData extends UserData {
     private Vector2 linearVelocity;
     private String[] textureRegions;
 
-    public EnemyUserData(float width, float height, String[] textureRegions){
+    public EnemyUserData(float width, float height, String animationAssetsId){
         super(width, height);
         userDataType = userDataType.ENEMY;
         linearVelocity = Constants.ENEMY_LINEAR_VELOCITY;
-        this.textureRegions = textureRegions;
+        this.animationAssetsId = animationAssetsId;
     }
 
     public void setLinearVelocity(Vector2 linearVelocity){
@@ -32,4 +32,5 @@ public class EnemyUserData extends UserData {
     public String[] getTextureRegions(){
         return textureRegions;
     }
+
 }

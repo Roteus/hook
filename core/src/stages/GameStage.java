@@ -1,7 +1,9 @@
 package stages;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -115,8 +117,8 @@ public class GameStage extends Stage implements ContactListener{
     }
 
     private void createEnemy(){
-        Enemy enemy = new Enemy(WorldUtils.createEnemy(world));
-        addActor(enemy);
+        /*Enemy enemy = new Enemy(WorldUtils.createEnemy(world));
+        addActor(enemy);*/
     }
 
     public void setupTouchControlAreas(){
@@ -128,7 +130,6 @@ public class GameStage extends Stage implements ContactListener{
 
     @Override
     public boolean touchDown(int x, int y, int pointer, int button){
-
         //pegar coordenadas atual
         translateScreenToWorldCoordinates(x,y);
 
@@ -140,6 +141,22 @@ public class GameStage extends Stage implements ContactListener{
         }
 
         return super.touchDown(x,y,pointer,button);
+    }
+
+    @Override
+    public boolean keyDown(int button){
+        if(button == Input.Keys.UP)
+            runner.jump();
+        else if(button == Input.Keys.DOWN)
+            runner.dodge();
+        return super.keyDown(button);
+    }
+
+    @Override
+    public boolean keyUp(int button){
+        if(runner.isDodging())
+            runner.stopDodge();
+        return super.keyUp(button);
     }
 
     @Override

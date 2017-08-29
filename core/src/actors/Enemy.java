@@ -1,14 +1,15 @@
 package actors;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 
 import box2d.EnemyUserData;
-import utils.Constants;
+import utils.AssetsManager;
 
 /**
  * Created by root on 17/08/17.
@@ -21,13 +22,7 @@ public class Enemy extends GameActor {
 
     public Enemy(Body body){
         super(body);
-        TextureAtlas textureAtlas = new TextureAtlas(Constants.CHARACTERS_ATLAS_PATH);
-        TextureRegion[] runningFrames = new TextureRegion[getUserData().getTextureRegions().length];
-        for(int i = 0; i < getUserData().getTextureRegions().length; i++){
-            String path = getUserData().getTextureRegions()[i];
-            runningFrames[i] = textureAtlas.findRegion(path);
-        }
-        animation = new Animation(0.1f, runningFrames);
+        animation = AssetsManager.getAnimation(getUserData().getAnimationAssetsId());
         stateTime = 0f;
     }
 

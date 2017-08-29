@@ -11,6 +11,7 @@ public abstract class UserData {
     protected UserDataType userDataType;
     protected float width;
     protected float height;
+    protected String animationAssetsId;
 
     public UserData(){
 
@@ -39,5 +40,9 @@ public abstract class UserData {
 
     public void setHeight(float height) {
         this.height = height;
+    }
+
+    public String getAnimationAssetsId() {
+        return animationAssetsId;
     }
 }
