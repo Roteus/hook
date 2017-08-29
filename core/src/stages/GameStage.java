@@ -117,8 +117,8 @@ public class GameStage extends Stage implements ContactListener{
     }
 
     private void createEnemy(){
-        /*Enemy enemy = new Enemy(WorldUtils.createEnemy(world));
-        addActor(enemy);*/
+        Enemy enemy = new Enemy(WorldUtils.createEnemy(world));
+        addActor(enemy);
     }
 
     public void setupTouchControlAreas(){
